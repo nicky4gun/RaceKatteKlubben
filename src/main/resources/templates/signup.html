@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up | RaceKatteKlubben</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+    <div id="signup-screen">
+        <h1>Sign Up</h1>
+
+        <form th:object="${member}" method="post" th:action="@{/register}">
+            <div class="input-field">
+                <label for="name">Navn:</label>
+                <input type="text" th:field="*{memberName}" id="name" placeholder="Enter name...">
+            </div>
+
+            <div class="input-field">
+                <label for="email">Email:</label>
+                <input type="text" th:field="*{email}" id="email" placeholder="Enter email...">
+            </div>
+
+            <div class="input-field">
+                <label for="password">Adgangskode:</label>
+                <input type="password" th:field="*{password}" id="password" placeholder="Enter password...">
+            </div>
+
+            <div class="button-field">
+                <button type="submit" id="signup">Sign up</button>
+                <a href="/"><button type="button" id="login">Back to login</button></a>
+            </div>
+
+            <p th:if="${error}" th:text="${error}" style="color:red;"></p>
+        </form>
+    </div>
+</body>
+</html>

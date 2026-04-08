@@ -7,20 +7,20 @@ import java.util.List;
 public class Cat {
     private int id;
     private String images;
-    private String name;
+    private String catName;
     private Race race;
      private int age;
      private String gender;
      private List<String> awards;
      private String owner;
 
-     public Cat(String images, String name, Race race, int age, String gender, List<String> awards,String owner ) {
+     public Cat(String images, String catName, Race race, int age, String gender, List<String> awards, String owner ) {
 
      }
-     public Cat(int id, String images, String name, Race race, int age, String gender, List<String> awards,String owner ) {
+     public Cat(int id, String images, String catName, Race race, int age, String gender, List<String> awards, String owner ) {
          this.id = id;
          this.images = images;
-         this.name = name;
+         this.catName = catName;
          this.race = race;
          this.age = age;
          this.gender = gender;
@@ -45,12 +45,12 @@ public class Cat {
         this.images = images;
     }
 
-    public String getName() {
-        return name;
+    public String getCatName() {
+        return catName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCatName(String catName) {
+        this.catName = catName;
     }
 
     public Race getRace() {

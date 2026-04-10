@@ -53,14 +53,30 @@ public class MemberRepository implements IMemberRepository {
     }
 
     @Override
+    public Member findMemberById(int id) {
+        String sql = "SELECT id, member_name, email, password, admin FROM members WHERE id = ?";
+
+        List<Member> members = jdbcTemplate.query(sql, (rs, rowNum) ->
+                new Member(
+                        rs.getInt("id"),
+                        rs.getString("member_name"),
+                        rs.getString("email"),
+                        rs.getString("password"),
+                        rs.getBoolean("admin")
+                ), id);
+
+        return members.isEmpty() ? null : members.getFirst();
+    }
+
+    @Override
     public void updateMember(Member member) {
-        String sql = "UPDATE members SET member_name = ?, password = ? WHERE member_id = ?";
+        String sql = "UPDATE members SET member_name = ?, password = ? WHERE id = ?";
         jdbcTemplate.update(sql, member.getMemberName(), member.getPassword(), member.getId());
     }
 
     @Override
-    public void removeMember( int id ){
-        String sql = "DELETE FROM members WHERE member_id = ?";
+    public void removeMember(int id){
+        String sql = "DELETE FROM members WHERE id = ?";
         jdbcTemplate.update(sql, id);
     }
 }

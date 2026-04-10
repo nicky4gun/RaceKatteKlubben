@@ -20,17 +20,17 @@ CREATE TABLE IF NOT EXISTS cats (
     FOREIGN KEY (member_id) REFERENCES members(id)
 );
 
-CREATE TABLE IF NOT EXISTS awards(
+CREATE TABLE IF NOT EXISTS awards (
     id INT AUTO_INCREMENT PRIMARY KEY,
     awardName VARCHAR(40),
     Standing int
 );
 
-CREATE TABLE IF NOT EXISTS catawards(
+CREATE TABLE IF NOT EXISTS catawards (
     id INT AUTO_INCREMENT PRIMARY KEY,
     award_id int,
     cat_id int,
 
     FOREIGN KEY (award_id) REFERENCES awards(id),
     FOREIGN KEY (cat_id) REFERENCES cats(id)
-)
+);

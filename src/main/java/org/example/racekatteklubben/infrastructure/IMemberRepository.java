@@ -7,6 +7,8 @@ public interface IMemberRepository {
 
     Member findMemberByEmail(String email);
 
+    Member findMemberById(int memberId);
+
     void updateMember(Member member);
 
     void removeMember(int id);

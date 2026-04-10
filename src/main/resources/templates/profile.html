@@ -6,9 +6,15 @@
     <link rel="stylesheet" th:href="@{/styles.css}">
 </head>
 <body>
-<h1>Hello <span th:text="${member.memberName}"></span></h1>
-<a href="/home">Go to home</a>
-<a th:href="@{/logout}">Logout</a>
+    <h1>Hello <span th:text="${member.memberName}"></span></h1>
+    <a href="/home">Go to home</a>
+    <a href="/logout">Log ud</a>
+    <a href="/profile/update">update Profile</a>
+
+    <form action="/delete" method="post" onsubmit="return confirm('Er du sikker på at du vil slette din konto?')">
+        <input type="hidden" name="id" th:value="${member.id}">
+        <button type="submit">Slet konto</button>
+    </form>
 
 </body>
 </html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update | RaceKatteKlubben</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+    <h1> Opdater din profile </h1>
+
+    <form th:object="${member}" method="post" th:action="@{/profile/update}">
+        <input type="hidden" name="id" th:value="*{id}">
+        <div class="input-field">
+            <label for="name">Navn:</label>
+            <input type="text" th:field="*{memberName}" id="name" placeholder="Enter name...">
+        </div>
+
+        <div class="input-field">
+            <label for="email">Email:</label>
+            <input type="text" th:field="*{email}" id="email" placeholder="Enter email...">
+        </div>
+
+        <div class="input-field">
+            <label>Gamle Adgangskode:</label>
+            <input type="password" name="oldPassword" placeholder="Enter old password...">
+        </div>
+        <div class="input-field">
+            <label>Nye Adgangskode:</label>
+            <input type="password" name="password" placeholder="Enter new password...">
+        </div>
+        <div class="input-field">
+            <label>Gentag Adgangskode:</label>
+            <input type="password" name="confirmPassword" placeholder="Repeat password...">
+        </div>
+
+        <button type="submit">Update </button>
+        <p th:if="${error}" th:text="${error}" style="color:red;"></p>
+    </form>
+
+    <a href="/home">Go to home</a>
+</body>
+</html>

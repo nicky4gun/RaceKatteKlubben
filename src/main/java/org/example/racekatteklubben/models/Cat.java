@@ -9,25 +9,29 @@ public class Cat {
     private String images;
     private String catName;
     private Race race;
-     private int age;
-     private String gender;
-     private List<String> awards;
-     private String owner;
+    private int age;
+    private String gender;
+    private List<String> awards;
+    private int ownerId;
 
-     public Cat(String images, String catName, Race race, int age, String gender, List<String> awards, String owner ) {
+    public Cat(String images, String catName, Race race, int age, String gender, int ownerId) {
+        this.images = images;
+        this.catName = catName;
+        this.race = race;
+        this.age = age;
+        this.gender = gender;
+        this.ownerId = ownerId;
+    }
 
-     }
-     public Cat(int id, String images, String catName, Race race, int age, String gender, List<String> awards, String owner ) {
-         this.id = id;
-         this.images = images;
-         this.catName = catName;
-         this.race = race;
-         this.age = age;
-         this.gender = gender;
-         this.awards = awards;
-         this.owner = owner;
-
-     }
+    public Cat(int id, String images, String catName, Race race, int age, String gender, int ownerId) {
+        this.id = id;
+        this.images = images;
+        this.catName = catName;
+        this.race = race;
+        this.age = age;
+        this.gender = gender;
+        this.ownerId = ownerId;
+    }
 
     public int getId() {
         return id;
@@ -84,10 +88,12 @@ public class Cat {
     public void setAwards(List<String> awards) {
         this.awards = awards;
     }
-    public String getOwner() {
-         return owner;
+
+    public int getOwnerId() {
+         return ownerId;
     }
-    public void setOwner(String owner) {
-         this.owner = owner;
+
+    public void setOwnerId(String owner) {
+         this.ownerId = ownerId;
     }
 }

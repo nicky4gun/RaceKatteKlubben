@@ -5,9 +5,7 @@ import org.example.racekatteklubben.models.Member;
 import org.example.racekatteklubben.service.MemberService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class MemberController {
@@ -15,12 +13,6 @@ public class MemberController {
 
     public MemberController(MemberService memberService) {
         this.memberService = memberService;
-    }
-
-    @GetMapping("/")
-    public String showLoginForm(Model model) {
-        model.addAttribute("member", new Member());
-        return "login";
     }
 
     @GetMapping("/register")
@@ -32,7 +24,13 @@ public class MemberController {
     @PostMapping("/register")
     public String register(@ModelAttribute Member member) {
         memberService.registerMember(member.getMemberName(), member.getEmail(), member.getPassword(), false);
-        return "redirect:/";
+        return "redirect:/login";
+    }
+
+    @GetMapping("/login")
+    public String showLoginForm(Model model) {
+        model.addAttribute("member", new Member());
+        return "login";
     }
 
     @PostMapping("/login")
@@ -72,9 +70,40 @@ public class MemberController {
 
         return "profile";
     }
+    
+    @GetMapping("/profile/update")
+    public String ShowUpdateProfile(HttpSession session, Model model) {
+        Member member = (Member) session.getAttribute("loggedInMember");
+
+        if (member == null) {
+            return "redirect:/login";
+        }
+
+        model.addAttribute("member", member);
+        return "update";
+    }
+
+    @PostMapping("/profile/update")
+    public String updateProfile(HttpSession session, Model model, @ModelAttribute Member member, @RequestParam String oldPassword, @RequestParam String password, @RequestParam String confirmPassword) {
+        if (!password.equals(confirmPassword)) {
+            model.addAttribute("error", "Passwords do not match");
+            return "update";
+        }
+
+        memberService.updateMember(member.getId(), member.getMemberName(), member.getEmail(), oldPassword, password);
+        session.setAttribute("loggedInMember", member);
+        return "redirect:/profile";
+    }
+
+    @PostMapping("/members/delete/{id}")
+    public String deleteMember(HttpSession session, @PathVariable int id) {
+        memberService.removeMember(id);
+        session.invalidate();
+        return "redirect:/login";
+    }
 
     @GetMapping("/logout")
-    public String logout(HttpSession session, Model model) {
+    public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/login";
     }

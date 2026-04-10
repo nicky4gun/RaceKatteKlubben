@@ -1,5 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home | RaceKatteKlubben</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+<h1>Hello <span th:text="${member.memberName}"></span></h1>
+<a href="/home">Go to home</a>
+<a th:href="@{/logout}">Logout</a>
 
-
-
-
-<link rel="stylesheet" th:href="@{/styles.css}">
+</body>
+</html>

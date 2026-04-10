@@ -1,9 +1,10 @@
-CREATE DATABASE raceKatteKlub
+CREATE DATABASE raceKatteKlub;
+
 CREATE TABLE IF NOT EXISTS members (
     id INT AUTO_INCREMENT PRIMARY KEY,
     member_name VARCHAR(50) not null,
     email VARCHAR(100) not null,
-    password VARCHAR(40) not null,
+    password VARCHAR(200) not null,
     admin TINYINT
 );
 

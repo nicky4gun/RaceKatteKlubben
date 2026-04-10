@@ -20,11 +20,14 @@ public class MemberService {
         memberRepository.createMember(member);
     }
 
-    public boolean loginMember(Member member) {
-        Member existingMember = memberRepository.findMemberByEmail(member.getEmail());
-        if (existingMember == null) return false;
+    public Member loginMember(String email, String password) {
+        Member existingMember = memberRepository.findMemberByEmail(email);
 
-        return BCrypt.checkpw(member.getPassword(), existingMember.getPassword());
+        if (existingMember != null &&  BCrypt.checkpw(password, existingMember.getPassword())) {
+            return existingMember;
+        }
+
+        return null;
     }
 
     public void updateMember(Member member) {

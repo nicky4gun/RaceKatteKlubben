@@ -6,7 +6,9 @@
     <link rel="stylesheet" th:href="@{/styles.css}">
 </head>
 <body>
-    <h1>Hello member!</h1>
+    <h1>Hello <span th:text="${member.memberName}"></span></h1>
+    <a href="/profile">GO to profile</a>
+    <a th:href="@{/logout}">Logout</a>
 
 </body>
 </html>

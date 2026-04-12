@@ -11,8 +11,9 @@
     <a href="/logout">Log ud</a>
     <a href="/profile/update">update Profile</a>
 
-    <form action="/delete" method="post" onsubmit="return confirm('Er du sikker på at du vil slette din konto?')">
-        <input type="hidden" name="id" th:value="${member.id}">
+    <form th:action="@{/members/delete/{id}(id =${member.id})}"
+          method="post"
+          onsubmit="return confirm('Er du sikker på at du vil slette din konto?')">
         <button type="submit">Slet konto</button>
     </form>
 

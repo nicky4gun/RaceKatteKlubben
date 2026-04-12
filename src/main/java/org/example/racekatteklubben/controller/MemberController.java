@@ -97,9 +97,13 @@ public class MemberController {
 
     @PostMapping("/members/delete/{id}")
     public String deleteMember(HttpSession session, @PathVariable int id) {
+        Member currentMemberId = (Member) session.getAttribute("loggedInMember");
         memberService.removeMember(id);
+        if (currentMemberId != null && currentMemberId.getId() == id) {
         session.invalidate();
         return "redirect:/login";
+        }
+        return "redirect:/profile";
     }
 
     @GetMapping("/logout")

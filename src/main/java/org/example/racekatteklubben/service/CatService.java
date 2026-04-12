@@ -1,5 +1,6 @@
 package org.example.racekatteklubben.service;
 
+import org.example.racekatteklubben.infrastructure.CatRepository;
 import org.example.racekatteklubben.infrastructure.ICatRepository;
 import org.example.racekatteklubben.infrastructure.IMemberRepository;
 import org.example.racekatteklubben.models.Cat;
@@ -21,6 +22,7 @@ public class CatService {
         Cat cat = new Cat(imageUrl, catName, race, age, gender, memberId);
         catRepository.createCat(cat);
     }
+    public void removeCat(int catid) {catRepository.deleteCat(catid);}
 
     private void validateCat(String imageUrl, String catName, Race race, int age, String gender, int memberId) {}
 }

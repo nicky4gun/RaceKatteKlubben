@@ -1,6 +1,7 @@
 package org.example.racekatteklubben.infrastructure;
 
 import org.example.racekatteklubben.models.Cat;
+import org.example.racekatteklubben.models.enums.Race;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class CatRepository implements ICatRepository {
@@ -35,5 +38,59 @@ public class CatRepository implements ICatRepository {
         }, keyHolder);
 
         return keyHolder.getKey().intValue();
+    }
+
+    @Override
+    public List<Cat> findAllCatsByMemberId(int memberId) {
+        String sql = "SELECT id, image, cat_name, race, age, gender, member_id FROM cats WHERE member_id = ?";
+        return jdbcTemplate.query(sql, (rs, rowNum) ->
+                new Cat(
+                        rs.getInt("id"),
+                        rs.getString("image"),
+                        rs.getString("cat_name"),
+                        Race.valueOf(rs.getString("race")),
+                        rs.getInt("age"),
+                        rs.getString("gender"),
+                        rs.getInt("member_id")
+                ), memberId);
+    }
+
+    @Override
+    public Optional<Cat> findCatById(int id) {
+        String sql = "SELECT id, image, cat_name, race, age, gender, member_id FROM cats WHERE member_id = ?";
+
+        List<Cat> cats = jdbcTemplate.query(sql, (rs, rowNum) ->
+                new Cat(
+                        rs.getInt("id"),
+                        rs.getString("image"),
+                        rs.getString("cat_name"),
+                        Race.valueOf(rs.getString("race")),
+                        rs.getInt("age"),
+                        rs.getString("gender"),
+                        rs.getInt("member_id")
+                ), id);
+
+        return cats.isEmpty() ? Optional.empty() : Optional.of(cats.getFirst());
+    }
+
+    @Override
+    public void updateCat(Cat cat) {
+        String sql = "UPDATE cats SET image = ?, cat_name = ?, race = ?, age = ?, gender = ?, member_id = ? WHERE id = ?";
+
+        jdbcTemplate.update(sql,
+                cat.getImages(),
+                cat.getCatName(),
+                cat.getRace().toString(),
+                cat.getAge(),
+                cat.getGender(),
+                cat.getOwnerId(),
+                cat.getId()
+        );
+    }
+
+    @Override
+    public void deleteCat(int catId) {
+        String sql = "DELETE FROM cats WHERE id = ?";
+        jdbcTemplate.update(sql, catId);
     }
 }

@@ -1,7 +1,9 @@
 package org.example.racekatteklubben.controller;
 
 import jakarta.servlet.http.HttpSession;
+import org.example.racekatteklubben.infrastructure.MemberRepository;
 import org.example.racekatteklubben.models.Member;
+import org.example.racekatteklubben.service.CatService;
 import org.example.racekatteklubben.service.MemberService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,9 +11,12 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class MemberController {
+    private final CatService catService;
     private final MemberService memberService;
 
-    public MemberController(MemberService memberService) {
+
+    public MemberController(CatService catService, MemberService memberService) {
+        this.catService = catService;
         this.memberService = memberService;
     }
 
@@ -96,13 +101,17 @@ public class MemberController {
     }
 
     @PostMapping("/members/delete/{id}")
-    public String deleteMember(HttpSession session, @PathVariable int id) {
-        Member currentMemberId = (Member) session.getAttribute("loggedInMember");
+    public String deleteMember(HttpSession session, @PathVariable("id") int id) {
+
+        Member currentMember = (Member) session.getAttribute("loggedInMember");
+        catService.removeCatByMemberId(id);
         memberService.removeMember(id);
-        if (currentMemberId != null && currentMemberId.getId() == id) {
-        session.invalidate();
-        return "redirect:/login";
+
+        if (currentMember != null && currentMember.getId() == id) {
+            session.invalidate();
+            return "redirect:/login";
         }
+
         return "redirect:/profile";
     }
 

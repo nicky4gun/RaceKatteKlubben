@@ -8,7 +8,9 @@
     <h1>Error</h1>
 
     <p th:text="${errorMessage}"></p>
-    <a th:href="@{/login}">Back to home</a>
+    <a href="/login" onclick="history.back(); return false;">Go back</a>
+
+<!--    <a th:href="@{/login}">Back to home</a>-->
 
 </body>
 </html>

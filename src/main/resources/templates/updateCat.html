@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update | RaceKatteKlubben</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+    <h1>Opdater kat</h1>
+    <form th:object="${cat}" method="post" th:action="@{/profile/{memberId}/cats/update/{id}(memberId=${memberId}, id=${cat.id})}">
+        <input type="hidden" name="id" th:value="*{id}">
+        <div class="input-field">
+            <label for="name">images:</label>
+            <input type="text" th:field="*{images}" id="images" placeholder="Enter images here...">
+        </div>
+
+        <div class="input-field">
+            <label for="name">Navn:</label>
+            <input type="text" th:field="*{catName}" id="name" placeholder="Enter name...">
+        </div>
+
+        <div class="input-field">
+            <label for="name">Race:</label>
+            <input type="text" th:field="*{race}" id="race" placeholder="Enter Race ...">
+        </div>
+        <div class="input-field">
+            <label for="name">Age:</label>
+            <input type="text" th:field="*{age}" id="age" placeholder="Enter age...">
+        </div>
+        <div class="input-field">
+            <label for="name">Year OR Month:</label>
+            <input type="text" th:field="*{yearOrMonth}" id="yearOrMonth" placeholder="Enter yearOrMonth...">
+        </div>
+        <div class="input-field">
+            <label for="name">gender:</label>
+            <input type="text" th:field="*{gender}" id="gender" placeholder="Enter gender...">
+        </div>
+
+        <input type="hidden" name="memberId" th:value="${memberId}">
+
+
+        <div class="buttons-field">
+            <button type="submit" id="update-cat">Opdater</button>
+            <a th:href="@{/profile/{memberId}/cats(memberId=${member.id})}">
+                <button type="button" id="cancel">Cancel</button>
+
+            </a>
+        </div>
+
+    </form>
+    <a href="/home">Go to home</a>
+</body>
+</html>

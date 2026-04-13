@@ -48,7 +48,7 @@ public class MemberService {
         memberRepository.updateMember(updatedMember);
     }
 
-    private String resolvePassword(String password, String oldPassword, String existingHashedPassword) {
+    private String resolvePassword(String oldPassword, String password, String existingHashedPassword) {
         if (password != null && !password.isEmpty()) {
             validatePassword(password);
 

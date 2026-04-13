@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Opret | RaceKatteKlubben</title>
+    <link rel='stylesheet' th:href="@{/styles.css}">
+</head>
+<body>
+    <h1>Opret ny Kat</h1>
+
+    <form th:action="@{/profile/{memberId}/cats/create(memberId=${member.id})}" th:object="${cat}" method="post">
+        <div class="input-field">
+            <Label for="image">Image:</Label>
+            <input type="text" id="image" name="images" th:value="*{images}" placeholder="e.g. image.png">
+        </div>
+
+        <div class="input-field">
+            <Label for="catName">Navn:</Label>
+            <input type="text" id="name" name="catName" th:value="*{catName}" placeholder="Indtast navn...">
+        </div>
+
+        <div class="input-field">
+            <Label for="race">Race: </Label>
+            <input type="text" id="race" name="race" th:value="*{race}" placeholder="Vælg race...">
+        </div>
+
+        <div class="input-field">
+            <Label for="age">Alder:</Label>
+            <input type="number" id="age" name="age" th:value="*{age}" placeholder="Indtast alder...">
+        </div>
+
+        <div class="input-field">
+            <Label for="yearorMonth">Aldersgruppe:</Label>
+            <input type="text" id="yearorMonth" name="yearOrMonth" th:value="*{yearOrMonth}" placeholder="Vælg aldersgruppe...">
+        </div>
+
+        <div class="input-field">
+            <Label for="gender">Køn:</Label>
+            <input type="text" id="gender" name="gender" th:value="*{gender}" placeholder="Vælg køn...">
+        </div>
+
+        <input type="hidden" name="memberId" th:value="${memberId}">
+
+        <div class="buttons-field">
+            <button type="submit" id="create-cat">Opret</button>
+            <a th:href="@{/profile/{memberId}/cats(memberId=${member.id})}">
+                <button type="button" id="cancel">Cancel</button>
+            </a>
+        </div>
+    </form>
+</body>
+</html>

@@ -1,7 +1,10 @@
 package org.example.racekatteklubben.models;
 
+import org.example.racekatteklubben.models.enums.Gender;
 import org.example.racekatteklubben.models.enums.Race;
+import org.example.racekatteklubben.models.enums.YearOrMonth;
 
+import java.time.Year;
 import java.util.List;
 
 public class Cat {
@@ -10,25 +13,31 @@ public class Cat {
     private String catName;
     private Race race;
     private int age;
-    private String gender;
+    private YearOrMonth yearOrMonth;
+    private String memberId;
+    private Gender gender;
     private List<String> awards;
     private int ownerId;
 
-    public Cat(String images, String catName, Race race, int age, String gender, int ownerId) {
+    public Cat() {}
+
+    public Cat(String images, String catName, Race race, int age,YearOrMonth yearOrMonth, Gender gender, int ownerId) {
         this.images = images;
         this.catName = catName;
         this.race = race;
         this.age = age;
+        this.yearOrMonth = yearOrMonth;
         this.gender = gender;
         this.ownerId = ownerId;
     }
 
-    public Cat(int id, String images, String catName, Race race, int age, String gender, int ownerId) {
+    public Cat(int id, String images, String catName, Race race, int age,YearOrMonth yearOrMonth, Gender gender, int ownerId) {
         this.id = id;
         this.images = images;
         this.catName = catName;
         this.race = race;
         this.age = age;
+        this.yearOrMonth = yearOrMonth;
         this.gender = gender;
         this.ownerId = ownerId;
     }
@@ -73,11 +82,11 @@ public class Cat {
         this.age = age;
     }
 
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 
@@ -96,4 +105,8 @@ public class Cat {
     public void setOwnerId(String owner) {
          this.ownerId = ownerId;
     }
+
+    public YearOrMonth getYearOrMonth() {return yearOrMonth;}
+
+    public void  setYearOrMonth(YearOrMonth yearOrMonth) {this.yearOrMonth = yearOrMonth;}
 }

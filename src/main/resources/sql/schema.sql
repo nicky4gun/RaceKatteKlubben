@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS cats (
     cat_name VARCHAR(30) not null,
     race VARCHAR(50),
     age  INT,
+    year_or_month VARCHAR(10),
     gender VARCHAR(10),
     member_id int,
 

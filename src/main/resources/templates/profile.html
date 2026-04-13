@@ -17,5 +17,14 @@
         <button type="submit">Slet konto</button>
     </form>
 
+<form th:action="@{/profile/{memberId}/cats(memberId=${member.id})}"
+    method="post">
+    <button type="submit">fremvis katte</button>
+
+
+
+</form>
+
+
 </body>
 </html>

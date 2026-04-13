@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ICatRepository {
+
     int createCat(Cat cat);
 
     List<Cat> findAllCatsByMemberId(int memberId);
@@ -15,4 +16,6 @@ public interface ICatRepository {
     void updateCat(Cat cat);
 
     void deleteCat(int catId);
+
+    void deleteCatByMemberId(int memberId);
 }

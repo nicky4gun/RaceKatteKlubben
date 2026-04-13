@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Katte | RaceKatteKlubben</title>
+    <link rel='stylesheet' th:href="@{/styles.css}">
+</head>
+<body>
+    <h1>Dine Katte</h1>
+
+    <p id="links">
+        <a th:href="@{/profile}">Tilbage til profile</a> |
+        <a th:href="@{/home}">Hjem</a>
+    </p>
+
+    <a th:href="@{/profile/{memberId}/cats/create(memberId=${member.id})}"><button type="button">Opret ny Kat</button></a>
+
+    <table border="1" id="cat-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Billede</th>
+                <th>Navn</th>
+                <th>Alder</th>
+                <th>YearOrMonth</th>
+                <th>Race</th>
+                <th>Køn</th>
+                <th>Handlinger</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="cat: ${cats}">
+                <td th:text="${cat.id}"></td>
+                <td><img th:src="@{'/images/' + ${cat.images}}" alt="cat Image" width="100"></td>
+                <td th:text="${cat.catName}"></td>
+                <td th:text="${cat.age}"></td>
+                <td th:text="${cat.yearOrMonth}"></td>
+                <td th:text="${cat.race}"></td>
+                <td th:text="${cat.gender}"></td>
+                <td>
+                    <form th:action="@{/cat/delete/{id}(id=${cat.id})}" method="post">
+                        <input type="hidden" name="memberId" th:value="${member.id}">
+                        <button type="submit" onclick="return confirm('Er du sikker på du vil slette katten?')">Slet</button>
+
+                    </form>
+                    <form th:action="@{/profile/{memberId}/cats/update/{id}(memberId=${memberId}, id=${cat.id})}">
+                        <input type="hidden" name="memberId" th:value="${member.id}">
+                        <input type="hidden" name="catId" th:value="${cat.id}">
+                        <button type="submit">Opdater</button>
+
+
+
+                    </form>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(cats)}">
+                <td colspan="6">Du har ingen oprettede katte</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

@@ -33,6 +33,7 @@ public enum Race {
     Exotic_Shorthair,
     Foldex,
     Maine_Coon,
+    Huskat,
 
 
 

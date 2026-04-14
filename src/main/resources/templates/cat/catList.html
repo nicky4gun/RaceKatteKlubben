@@ -15,7 +15,7 @@
     </p>
 
     <a th:href="@{/profile/{memberId}/cats/create(memberId=${member.id})}"><button type="button">Opret ny Kat</button></a>
-
+<div class="cat">
     <table border="1" id="cat-table">
         <thead>
             <tr>
@@ -39,6 +39,7 @@
                 <td th:text="${cat.race}"></td>
                 <td th:text="${cat.gender}"></td>
                 <td>
+                    <div class="actions">
                     <form th:action="@{/cat/delete/{id}(id=${cat.id})}" method="post">
                         <input type="hidden" name="memberId" th:value="${member.id}">
                         <button type="submit" onclick="return confirm('Er du sikker på du vil slette katten?')">Slet</button>
@@ -49,6 +50,7 @@
                         <input type="hidden" name="catId" th:value="${cat.id}">
                         <button type="submit">Opdater</button>
                     </form>
+                    </div>
                 </td>
             </tr>
             <tr th:if="${#lists.isEmpty(cats)}">
@@ -56,5 +58,6 @@
             </tr>
         </tbody>
     </table>
+</div>
 </body>
 </html>

@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Katte | RaceKatteKlubben</title>
-    <link rel='stylesheet' th:href="@{/styles.css}">
+    <link rel='stylesheet' th:href="@{/general.css}">
+    <link rel='stylesheet' th:href="@{/table.css}">
 </head>
 <body>
     <h1>Dine Katte</h1>
@@ -47,9 +48,6 @@
                         <input type="hidden" name="memberId" th:value="${member.id}">
                         <input type="hidden" name="catId" th:value="${cat.id}">
                         <button type="submit">Opdater</button>
-
-
-
                     </form>
                 </td>
             </tr>

@@ -2,29 +2,28 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Home | RaceKatteKlubben</title>
-    <link rel="stylesheet" th:href="@{/styles.css}">
+    <title>Profil | RaceKatteKlubben</title>
+    <link rel="stylesheet" th:href="@{/home.css}">
 </head>
 <body>
-    <h1>Hello <span th:text="${member.memberName}"></span></h1>
-    <a href="/home">Go to home</a>
-    <a href="/logout">Log ud</a>
-    <a href="/profile/update">update Profile</a>
+    <nav id="navbar">
+        <div class="nav-header">
+            <h1>Hello <span th:text="${member.memberName}"></span></h1>
+        </div>
+        <div >
+            <a class="nav-links" href="/home">Go home</a>
+            <a class="nav-links" href="/logout">Log ud</a>
+            <a class="nav-links" href="/profile/update">update Profile</a>
+        </div>
+    </nav>
 
-    <form th:action="@{/members/delete/{id}(id =${member.id})}"
-          method="post"
+    <form th:action="@{/members/delete/{id}(id =${member.id})}" method="post"
           onsubmit="return confirm('Er du sikker på at du vil slette din konto?')">
         <button type="submit">Slet konto</button>
     </form>
 
-<form th:action="@{/profile/{memberId}/cats(memberId=${member.id})}"
-    method="post">
-    <button type="submit">fremvis katte</button>
-
-
-
-</form>
-
-
+    <form th:action="@{/profile/{memberId}/cats(memberId=${member.id})}" method="get">
+        <button type="submit">Gå til mine katte</button>
+    </form>
 </body>
 </html>

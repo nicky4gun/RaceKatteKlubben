@@ -3,12 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Home | RaceKatteKlubben</title>
-    <link rel="stylesheet" th:href="@{/styles.css}">
+    <link rel="stylesheet" th:href="@{/home.css}">
 </head>
 <body>
-    <h1>Hello <span th:text="${member.memberName}"></span></h1>
-    <a href="/profile">GO to profile</a>
-    <a th:href="@{/logout}">Logout</a>
-
+    <nav id="navbar">
+        <div class="nav-header">
+            <h1>Hello <span th:text="${member.memberName}"></span></h1>
+        </div>
+        <div>
+            <a class="nav-links" href="/profile">Go to profile</a>
+            <a class="nav-links" th:href="@{/logout}">Logout</a>
+        </div>
+    </nav>
 </body>
 </html>

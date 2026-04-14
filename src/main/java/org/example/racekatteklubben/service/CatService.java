@@ -22,7 +22,7 @@ public class CatService {
     }
 
     public void addCat(String imageUrl, String catName, Race race, int age, YearOrMonth yearOrMonth, Gender gender, int memberId) {
-        validateCat(imageUrl, catName, race, age,yearOrMonth, gender);
+        validateCat(catName, race, age,yearOrMonth, gender);
         Cat cat = new Cat(imageUrl, catName, race, age,yearOrMonth, gender, memberId);
         catRepository.createCat(cat);
     }
@@ -51,7 +51,7 @@ public class CatService {
             throw new IllegalArgumentException("Cat with id " + id + " does not exist");
         }
 
-        validateCat(imageUrl, catName, race, age, yearOrMonth, gender);
+        validateCat(catName, race, age, yearOrMonth, gender);
 
         Cat cat = new Cat(id, imageUrl, catName, race, age,yearOrMonth, gender, memberId);
         catRepository.updateCat(cat);
@@ -62,11 +62,7 @@ public class CatService {
     public void removeCatByMemberId(int memberId) {catRepository.deleteCatByMemberId(memberId);}
 
 
-    private void validateCat(String imageUrl, String catName, Race race, int age, YearOrMonth yearOrMonth, Gender gender) {
-        if (imageUrl == null || imageUrl.isEmpty()) {
-            throw new IllegalArgumentException("You have to set a picture of your cat");
-        }
-
+    private void validateCat(String catName, Race race, int age, YearOrMonth yearOrMonth, Gender gender) {
         if (catName == null || catName.isEmpty()) {
             throw new IllegalArgumentException("You have to set a cat's name");
         }
@@ -75,7 +71,7 @@ public class CatService {
             throw new IllegalArgumentException("You have to set a race");
         }
 
-        if ( age < 0 || age > 18 ) {
+        if ( age <= 0 || age > 18 ) {
             throw new IllegalArgumentException("You have to set an age between 0 and 18");
         }
 

@@ -1,7 +1,6 @@
 package org.example.racekatteklubben.controller;
 
 import jakarta.servlet.http.HttpSession;
-import org.example.racekatteklubben.infrastructure.MemberRepository;
 import org.example.racekatteklubben.models.Member;
 import org.example.racekatteklubben.service.CatService;
 import org.example.racekatteklubben.service.MemberService;
@@ -23,7 +22,7 @@ public class MemberController {
     @GetMapping("/register")
     public String showSignupForm(Model model) {
         model.addAttribute("member", new Member());
-        return "signup";
+        return "auth/signup";
     }
 
     @PostMapping("/register")
@@ -35,7 +34,7 @@ public class MemberController {
     @GetMapping("/login")
     public String showLoginForm(Model model) {
         model.addAttribute("member", new Member());
-        return "login";
+        return "auth/login";
     }
 
     @PostMapping("/login")
@@ -47,7 +46,7 @@ public class MemberController {
             return "redirect:/home";
         } else {
             model.addAttribute("error", "Invalid username or password");
-            return "login";
+            return "auth/login";
         }
     }
 
@@ -73,7 +72,7 @@ public class MemberController {
 
         model.addAttribute("member", member);
 
-        return "profile";
+        return "member/profile";
     }
     
     @GetMapping("/profile/update")
@@ -85,14 +84,14 @@ public class MemberController {
         }
 
         model.addAttribute("member", member);
-        return "update";
+        return "member/update";
     }
 
     @PostMapping("/profile/update")
     public String updateProfile(HttpSession session, Model model, @ModelAttribute Member member, @RequestParam String oldPassword, @RequestParam String password, @RequestParam String confirmPassword) {
         if (!password.equals(confirmPassword)) {
             model.addAttribute("error", "Passwords do not match");
-            return "update";
+            return "member/update";
         }
 
         memberService.updateMember(member.getId(), member.getMemberName(), member.getEmail(), oldPassword, password);
@@ -101,7 +100,7 @@ public class MemberController {
     }
 
     @PostMapping("/members/delete/{id}")
-    public String deleteMember(HttpSession session, @PathVariable("id") int id) {
+    public String deleteMember(HttpSession session, @PathVariable int id) {
 
         Member currentMember = (Member) session.getAttribute("loggedInMember");
         catService.removeCatByMemberId(id);

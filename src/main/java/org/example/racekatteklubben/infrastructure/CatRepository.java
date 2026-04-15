@@ -1,6 +1,7 @@
 package org.example.racekatteklubben.infrastructure;
 
 import org.example.racekatteklubben.models.Cat;
+import org.example.racekatteklubben.models.interfaces.ICatRepository;
 import org.example.racekatteklubben.models.enums.Gender;
 import org.example.racekatteklubben.models.enums.Race;
 import org.example.racekatteklubben.models.enums.YearOrMonth;
@@ -46,6 +47,7 @@ public class CatRepository implements ICatRepository {
     @Override
     public List<Cat> findAllCatsByMemberId(int memberId) {
         String sql = "SELECT id, image, cat_name, race, age,year_or_month, gender, member_id FROM cats WHERE member_id = ?";
+
         return jdbcTemplate.query(sql, (rs, rowNum) ->
                 new Cat(
                         rs.getInt("id"),
@@ -92,6 +94,27 @@ public class CatRepository implements ICatRepository {
                 cat.getOwnerId(),
                 cat.getId()
         );
+    }
+
+    @Override
+    public List<Cat> searchForCat(String keyword, int memberId){
+        String sql = "SELECT cats.id, image, cat_name, race, age, year_or_month, gender, member_id FROM cats " +
+                     "JOIN members on cats.member_id = members.id " +
+                     "WHERE cats.member_id = ? AND cats.cat_name Like ?";
+
+        String pattern = "%" + keyword + "%";
+
+        return jdbcTemplate.query(sql, new Object[]{memberId, pattern}, (rs,rowNum) ->
+                new Cat(
+                    rs.getInt("id"),
+                    rs.getString("image"),
+                    rs.getString("cat_name"),
+                    Race.valueOf(rs.getString("race")),
+                    rs.getInt("age"),
+                    YearOrMonth.valueOf(rs.getString("year_or_month")),
+                    Gender.valueOf(rs.getString("gender")),
+                    rs.getInt("member_id")
+                ));
     }
 
     @Override

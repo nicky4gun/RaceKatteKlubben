@@ -19,5 +19,46 @@
     </nav>
 
     <h1>Velkommen, <span th:text="${member.memberName}"></span>!</h1>
+
+    <div class="home-search-container">
+        <div class="cat-search">
+            <form method="post" th:action="@{/home/cats}">
+                <div class="search-bar">
+                    <input type="text" name="keyword" placeholder="Søg efter kat...">
+                    <button type="submit">Søg</button>
+                </div>
+            </form>
+
+            <div class="cat-card" th:each="cat: ${cats}">
+                <img th:src="@{'/images/' + ${cat.images}}" alt="Cat Image">
+
+                <div class="cat-info">
+                    <h3 th:text="${cat.catName}"></h3>
+                    <p>Alder: <span th:text="${cat.age}"></span></p>
+                    <p th:text="${cat.yearOrMonth}"></p>
+                    <p th:text="${cat.race}"></p>
+                    <p th:text="${cat.gender}"></p>
+                    <p>Ejer id: <span th:text="${cat.ownerId}"></span></p>
+                </div>
+            </div>
+        </div>
+        <div class="member-search">
+            <form method="post" th:action="@{/home/members}">
+                <div class="search-bar">
+                    <input type="text" name="keyword" placeholder="Søg efter medlemmer...">
+                    <button type="submit">Søg</button>
+                </div>
+            </form>
+
+            <div class="member-card" th:each="member: ${members}">
+                <div class="member-info">
+                    <h3 th:text="${member.memberName}"></h3>
+                    <p th:text="${member.id}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p th:if="${error}" th:text="${error}" style="color:red;"></p>
 </body>
 </html>

@@ -6,57 +6,67 @@
     <link rel='stylesheet' th:href="@{/css/styles.css}">
 </head>
 <body>
+    <nav id="navbar">
+        <div class="nav-header">
+            <h1 id="company-name">RaceKatteKlubben</h1>
+        </div>
+        <div class="nav-links">
+            <a class="nav-link" href="/home">Hjem</a>
+            <a class="nav-link" href="/profile">Min Profil</a>
+        </div>
+
+        <a id="log-out-button" th:href="@{/logout}">Log ud</a>
+    </nav>
+
     <h1>Dine Katte</h1>
 
-    <p id="links">
-        <a th:href="@{/profile}">Tilbage til profile</a> |
-        <a th:href="@{/home}">Hjem</a>
-    </p>
+    <div id="cat-list-buttons">
+        <a th:href="@{/profile/{memberId}/cats/create(memberId=${member.id})}"><button type="button">Opret ny Kat</button></a>
+    </div>
 
-    <a th:href="@{/profile/{memberId}/cats/create(memberId=${member.id})}"><button type="button">Opret ny Kat</button></a>
-<div class="cat">
-    <table border="1" id="cat-table">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Billede</th>
-                <th>Navn</th>
-                <th>Alder</th>
-                <th>YearOrMonth</th>
-                <th>Race</th>
-                <th>Køn</th>
-                <th>Handlinger</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="cat: ${cats}">
-                <td th:text="${cat.id}"></td>
-                <td><img th:src="@{'/images/' + ${cat.images}}" alt="cat Image" width="100"></td>
-                <td th:text="${cat.catName}"></td>
-                <td th:text="${cat.age}"></td>
-                <td th:text="${cat.yearOrMonth}"></td>
-                <td th:text="${cat.race}"></td>
-                <td th:text="${cat.gender}"></td>
-                <td>
-                    <div class="actions">
-                    <form th:action="@{/cat/delete/{id}(id=${cat.id})}" method="post">
-                        <input type="hidden" name="memberId" th:value="${member.id}">
-                        <button type="submit" onclick="return confirm('Er du sikker på du vil slette katten?')">Slet</button>
+    <div class="cat">
+        <table border="1" id="cat-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Billede</th>
+                    <th>Navn</th>
+                    <th>Alder</th>
+                    <th>År/Måned</th>
+                    <th>Race</th>
+                    <th>Køn</th>
+                    <th>Handlinger</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="cat: ${cats}">
+                    <td th:text="${cat.id}"></td>
+                    <td><img th:src="@{'/images/' + ${cat.images}}" alt="cat Image" width="100"></td>
+                    <td th:text="${cat.catName}"></td>
+                    <td th:text="${cat.age}"></td>
+                    <td th:text="${cat.yearOrMonth}"></td>
+                    <td th:text="${cat.race}"></td>
+                    <td th:text="${cat.gender}"></td>
+                    <td>
+                        <div class="actions">
+                        <form th:action="@{/cat/delete/{id}(id=${cat.id})}" method="post">
+                            <input type="hidden" name="memberId" th:value="${member.id}">
+                            <button type="submit" onclick="return confirm('Er du sikker på du vil slette katten?')">Slet</button>
 
-                    </form>
-                    <form th:action="@{/profile/{memberId}/cats/update/{id}(memberId=${memberId}, id=${cat.id})}">
-                        <input type="hidden" name="memberId" th:value="${member.id}">
-                        <input type="hidden" name="catId" th:value="${cat.id}">
-                        <button type="submit">Opdater</button>
-                    </form>
-                    </div>
-                </td>
-            </tr>
-            <tr th:if="${#lists.isEmpty(cats)}">
-                <td colspan="8">Du har ingen oprettede katte</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+                        </form>
+                        <form th:action="@{/profile/{memberId}/cats/update/{id}(memberId=${memberId}, id=${cat.id})}">
+                            <input type="hidden" name="memberId" th:value="${member.id}">
+                            <input type="hidden" name="catId" th:value="${cat.id}">
+                            <button type="submit">Opdater</button>
+                        </form>
+                        </div>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(cats)}">
+                    <td colspan="8">Du har ingen oprettede katte</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

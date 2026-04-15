@@ -6,10 +6,7 @@ import org.example.racekatteklubben.models.Member;
 import org.example.racekatteklubben.service.CatService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class CatController {
@@ -86,10 +83,11 @@ public class CatController {
         if (member == null) {
             return "redirect:/login";
         }
+
         model.addAttribute("member", member);
         model.addAttribute("cat", cat);
 
-        catService.updateCat(cat.getId(),cat.getImages(),cat.getCatName(),cat.getRace(),cat.getAge(), cat.getYearOrMonth(),cat.getGender(),member.getId());
+        catService.updateCat(cat.getId(),cat.getImages(),cat.getCatName(),cat.getRace(),cat.getAge(), cat.getYearOrMonth(), cat.getGender(), member.getId());
 
         return "redirect:/profile/{memberId}/cats";
     }
@@ -97,6 +95,22 @@ public class CatController {
     @PostMapping("/cat/delete/{catId}")
     public String deleteCat(@PathVariable int catId) {
         catService.removeCat(catId);
-        return "redirect:/profile";
+        return "redirect:/profile/{memberId}/cats";
+    }
+
+    @PostMapping("/home/cats")
+    public String searchForCat(HttpSession session, Model model, @ModelAttribute Cat cat, @RequestParam String keyword) {
+        Member member = (Member) session.getAttribute("loggedInMember");
+
+        if (member == null) {
+            return "redirect:/login";
+        }
+
+        model.addAttribute("member", member);
+
+        int memberId = member.getId();
+        model.addAttribute("cats", catService.seachForCat(keyword, memberId));
+        model.addAttribute("cat", cat);
+        return "home";
     }
 }

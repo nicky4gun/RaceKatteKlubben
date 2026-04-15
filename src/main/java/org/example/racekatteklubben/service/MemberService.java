@@ -1,9 +1,13 @@
 package org.example.racekatteklubben.service;
 
-import org.example.racekatteklubben.infrastructure.IMemberRepository;
+import org.example.racekatteklubben.models.Cat;
+import org.example.racekatteklubben.models.SearchMemberDto;
+import org.example.racekatteklubben.models.interfaces.IMemberRepository;
 import org.example.racekatteklubben.models.Member;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class MemberService {
@@ -46,6 +50,12 @@ public class MemberService {
         String hashedPassword = resolvePassword(oldPassword, password, existingMember.getPassword());
         Member updatedMember = new Member(id, memberName, email, hashedPassword, false);
         memberRepository.updateMember(updatedMember);
+    }
+
+    public List<SearchMemberDto> searchForMember(String keyword) {
+
+        return memberRepository.searchForMember(keyword);
+
     }
 
     private String resolvePassword(String oldPassword, String password, String existingHashedPassword) {

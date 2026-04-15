@@ -1,6 +1,9 @@
-package org.example.racekatteklubben.infrastructure;
+package org.example.racekatteklubben.models.interfaces;
 
 import org.example.racekatteklubben.models.Member;
+import org.example.racekatteklubben.models.SearchMemberDto;
+
+import java.util.List;
 
 public interface IMemberRepository {
     int createMember(Member member);
@@ -12,4 +15,6 @@ public interface IMemberRepository {
     void updateMember(Member member);
 
     void removeMember(int id);
+
+    List<SearchMemberDto> searchForMember(String keyword);
 }

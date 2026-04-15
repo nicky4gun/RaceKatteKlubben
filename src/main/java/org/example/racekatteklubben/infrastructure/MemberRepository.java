@@ -1,5 +1,11 @@
 package org.example.racekatteklubben.infrastructure;
 
+import org.example.racekatteklubben.models.Cat;
+import org.example.racekatteklubben.models.SearchMemberDto;
+import org.example.racekatteklubben.models.enums.Gender;
+import org.example.racekatteklubben.models.enums.Race;
+import org.example.racekatteklubben.models.enums.YearOrMonth;
+import org.example.racekatteklubben.models.interfaces.IMemberRepository;
 import org.example.racekatteklubben.models.Member;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -69,9 +75,22 @@ public class MemberRepository implements IMemberRepository {
     }
 
     @Override
+    public List<SearchMemberDto> searchForMember(String keyword) {
+        String sql = "SELECT id, member_name FROM members WHERE member_name LIKE ?";
+
+        String pattern = "%" + keyword + "%";
+
+        return jdbcTemplate.query(sql, new Object[]{pattern}, (rs,rowNum) ->
+                new SearchMemberDto(
+                        rs.getInt("id"),
+                        rs.getString("member_name")
+                ));
+    }
+
+    @Override
     public void updateMember(Member member) {
-        String sql = "UPDATE members SET member_name = ?, password = ? WHERE id = ?";
-        jdbcTemplate.update(sql, member.getMemberName(), member.getPassword(), member.getId());
+        String sql = "UPDATE members SET member_name = ?, email = ?, password = ? WHERE id = ?";
+        jdbcTemplate.update(sql, member.getMemberName(), member.getEmail(), member.getPassword(), member.getId());
     }
 
     @Override

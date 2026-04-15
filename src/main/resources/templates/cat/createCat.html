@@ -6,9 +6,21 @@
     <link rel='stylesheet' th:href="@{/css/styles.css}">
 </head>
 <body>
+    <nav id="navbar">
+        <div class="nav-header">
+            <h1 id="company-name">RaceKatteKlubben</h1>
+        </div>
+        <div class="nav-links">
+            <a class="nav-link" href="/home">Hjem</a>
+            <a class="nav-link" href="/profile">Min Profil</a>
+        </div>
+
+        <a id="log-out-button" th:href="@{/logout}">Log ud</a>
+    </nav>
+
     <h1>Opret ny Kat</h1>
 
-    <form th:action="@{/profile/{memberId}/cats/create(memberId=${member.id})}" th:object="${cat}" method="post">
+    <form class="cat-form"  th:action="@{/profile/{memberId}/cats/create(memberId=${member.id})}" th:object="${cat}" method="post">
         <div class="input-field">
             <Label for="image">Image:</Label>
             <input type="text" id="image" name="images" th:value="*{images}" placeholder="e.g. image.png">
@@ -16,7 +28,7 @@
 
         <div class="input-field">
             <Label for="catName">Navn:</Label>
-            <input type="text" id="name" name="catName" th:value="*{catName}" placeholder="Indtast navn...">
+            <input type="text" id="catName" name="catName" th:value="*{catName}" placeholder="Indtast navn...">
         </div>
 
         <div class="input-field">
@@ -41,7 +53,7 @@
 
         <input type="hidden" name="memberId" th:value="${memberId}">
 
-        <div class="buttons-field">
+        <div class="button-field">
             <button type="submit" id="create-cat">Opret</button>
             <a th:href="@{/profile/{memberId}/cats(memberId=${member.id})}">
                 <button type="button" id="cancel">Cancel</button>

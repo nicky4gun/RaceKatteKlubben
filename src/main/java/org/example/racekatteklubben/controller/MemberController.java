@@ -87,6 +87,19 @@ public class MemberController {
         return "member/update";
     }
 
+    @PostMapping("/home/members")
+    public String searchForMembers(HttpSession session, Model model, @RequestParam String keyword) {
+        Member member = (Member) session.getAttribute("loggedInMember");
+
+        if (member == null) {
+            return "redirect:/login";
+        }
+
+        model.addAttribute("member", member);
+        model.addAttribute("members", memberService.searchForMember(keyword));
+        return "home";
+    }
+
     @PostMapping("/profile/update")
     public String updateProfile(HttpSession session, Model model, @ModelAttribute Member member, @RequestParam String oldPassword, @RequestParam String password, @RequestParam String confirmPassword) {
         if (!password.equals(confirmPassword)) {

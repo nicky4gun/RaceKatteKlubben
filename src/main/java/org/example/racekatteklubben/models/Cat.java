@@ -102,7 +102,7 @@ public class Cat {
          return ownerId;
     }
 
-    public void setOwnerId(String owner) {
+    public void setOwnerId(int ownerId) {
          this.ownerId = ownerId;
     }
 

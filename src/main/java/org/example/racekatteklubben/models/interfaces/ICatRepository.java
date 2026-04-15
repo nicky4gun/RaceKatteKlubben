@@ -1,4 +1,4 @@
-package org.example.racekatteklubben.infrastructure;
+package org.example.racekatteklubben.models.interfaces;
 
 import org.example.racekatteklubben.models.Cat;
 
@@ -14,6 +14,8 @@ public interface ICatRepository {
     Optional<Cat> findCatById(int id);
 
     void updateCat(Cat cat);
+
+    List<Cat> searchForCat(String name, int memberId);
 
     void deleteCat(int catId);
 

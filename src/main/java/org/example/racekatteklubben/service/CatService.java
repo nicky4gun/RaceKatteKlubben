@@ -1,6 +1,6 @@
 package org.example.racekatteklubben.service;
 
-import org.example.racekatteklubben.infrastructure.ICatRepository;
+import org.example.racekatteklubben.models.interfaces.ICatRepository;
 import org.example.racekatteklubben.models.Cat;
 import org.example.racekatteklubben.models.enums.Gender;
 import org.example.racekatteklubben.models.enums.Race;
@@ -51,6 +51,10 @@ public class CatService {
 
         Cat cat = new Cat(id, imageUrl, catName, race, age,yearOrMonth, gender, memberId);
         catRepository.updateCat(cat);
+    }
+
+    public List<Cat> seachForCat(String keyword, int memberId) {
+      return catRepository.searchForCat( keyword, memberId);
     }
 
     public void removeCat(int catId) {catRepository.deleteCat(catId);}

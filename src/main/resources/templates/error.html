@@ -6,12 +6,22 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
+    <nav id="navbar">
+        <div class="nav-header">
+            <h1 id="company-name">RaceKatteKlubben</h1>
+        </div>
+        <div class="nav-links">
+            <a class="nav-link" href="/home">Hjem</a>
+            <a class="nav-link" href="/profile">Min Profil</a>
+        </div>
+
+        <a id="log-out-button" th:href="@{/logout}">Log ud</a>
+    </nav>
+
     <h1>Error</h1>
 
     <p th:text="${errorMessage}"></p>
     <a href="/login" onclick="history.back(); return false;">Go back</a>
-
-<!--    <a th:href="@{/login}">Back to home</a>-->
 
 </body>
 </html>

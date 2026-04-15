@@ -1,7 +1,6 @@
 package org.example.racekatteklubben.service;
 
 import org.example.racekatteklubben.infrastructure.ICatRepository;
-import org.example.racekatteklubben.infrastructure.IMemberRepository;
 import org.example.racekatteklubben.models.Cat;
 import org.example.racekatteklubben.models.enums.Gender;
 import org.example.racekatteklubben.models.enums.Race;
@@ -14,17 +13,14 @@ import java.util.List;
 public class CatService {
     private final ICatRepository catRepository;
 
-    private final IMemberRepository memberRepository;
-
-    public CatService(ICatRepository catRepository, IMemberRepository memberRepository) {
+    public CatService(ICatRepository catRepository) {
         this.catRepository = catRepository;
-        this.memberRepository = memberRepository;
     }
 
-    public void addCat(String imageUrl, String catName, Race race, int age, YearOrMonth yearOrMonth, Gender gender, int memberId) {
+    public int addCat(String imageUrl, String catName, Race race, int age, YearOrMonth yearOrMonth, Gender gender, int memberId) {
         validateCat(catName, race, age,yearOrMonth, gender);
         Cat cat = new Cat(imageUrl, catName, race, age,yearOrMonth, gender, memberId);
-        catRepository.createCat(cat);
+        return catRepository.createCat(cat);
     }
 
     public List<Cat> findCatsByMemberId(int memberId) {

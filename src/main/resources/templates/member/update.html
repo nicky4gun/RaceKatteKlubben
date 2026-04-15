@@ -1,14 +1,26 @@
 <!DOCTYPE html>
-<html lang="en"xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Update | RaceKatteKlubben</title>
-    <link rel="stylesheet" th:href="@{/general.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
-    <h1> Opdater din profile </h1>
+    <nav id="navbar">
+        <div class="nav-header">
+            <h1 id="company-name">RaceKatteKlubben</h1>
+        </div>
+        <div class="nav-links">
+            <a class="nav-link" href="/home">Hjem</a>
+            <a class="nav-link" href="/profile">Min Profil</a>
+        </div>
 
-    <form th:object="${member}" method="post" th:action="@{/profile/update}">
+        <a id="log-out-button" href="/logout">Log ud</a>
+    </nav>
+
+    <h1> Opdater din profil</h1>
+
+    <form class="update-member-form" th:object="${member}" method="post" th:action="@{/profile/update}">
         <input type="hidden" name="id" th:value="*{id}">
         <div class="input-field">
             <label for="name">Navn:</label>
@@ -21,22 +33,24 @@
         </div>
 
         <div class="input-field">
-            <label>Gamle Adgangskode:</label>
-            <input type="password" name="oldPassword" placeholder="Enter old password...">
+            <label for="oldPassword">Gamle Adgangskode:</label>
+            <input type="password" name="oldPassword" id="oldPassword" placeholder="Enter old password...">
         </div>
         <div class="input-field">
-            <label>Nye Adgangskode:</label>
-            <input type="password" name="password" placeholder="Enter new password...">
+            <label for="password">Nye Adgangskode:</label>
+            <input type="password" name="password" id="password" placeholder="Enter new password...">
         </div>
         <div class="input-field">
-            <label>Gentag Adgangskode:</label>
-            <input type="password" name="confirmPassword" placeholder="Repeat password...">
+            <label for="confirmPassword">Gentag Adgangskode:</label>
+            <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Repeat password...">
         </div>
 
-        <button type="submit">Update </button>
+        <div class="form-actions">
+            <a href="/profile"><button class="btn" type="button">Gå tilbage</button></a>
+            <button class="btn" type="submit">Opdater</button>
+        </div>
+
         <p th:if="${error}" th:text="${error}" style="color:red;"></p>
     </form>
-
-    <a href="/home">Go to home</a>
 </body>
 </html>

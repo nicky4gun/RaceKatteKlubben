@@ -3,27 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Profil | RaceKatteKlubben</title>
-    <link rel="stylesheet" th:href="@{/home.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
     <nav id="navbar">
         <div class="nav-header">
-            <h1>Hello <span th:text="${member.memberName}"></span></h1>
+            <h1 id="company-name">RaceKatteKlubben</h1>
         </div>
-        <div >
-            <a class="nav-links" href="/home">Go home</a>
-            <a class="nav-links" href="/logout">Log ud</a>
-            <a class="nav-links" href="/profile/update">update Profile</a>
+        <div class="nav-links">
+            <a class="nav-link" href="/home">Hjem</a>
+            <a class="nav-link" href="/profile">Min Profil</a>
         </div>
+
+        <a id="log-out-button" href="/logout">Log ud</a>
     </nav>
 
-    <form th:action="@{/members/delete/{id}(id =${member.id})}" method="post"
-          onsubmit="return confirm('Er du sikker på at du vil slette din konto?')">
-        <button type="submit">Slet konto</button>
-    </form>
+    <h1>Hej <span th:text="${member.memberName}"></span>!</h1>
 
-    <form th:action="@{/profile/{memberId}/cats(memberId=${member.id})}" method="get">
-        <button type="submit">Gå til mine katte</button>
-    </form>
+    <div class="actions">
+        <a class="btn" th:href="@{/profile/{memberId}/cats(memberId=${member.id})}"><button type="button">Mine katte</button></a>
+        <a class="btn" href="/profile/update"><button type="button">Opdater Profil</button></a>
+
+        <form class="button" th:action="@{/members/delete/{id}(id =${member.id})}" method="post"
+              onsubmit="return confirm('Er du sikker på at du vil slette din konto?')">
+            <button class="btn btn-danger" type="submit">Slet konto</button>
+        </form>
+    </div>
 </body>
 </html>

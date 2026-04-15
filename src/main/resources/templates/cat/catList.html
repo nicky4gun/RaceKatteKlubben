@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Katte | RaceKatteKlubben</title>
-    <link rel='stylesheet' th:href="@{/general.css}">
-    <link rel='stylesheet' th:href="@{/table.css}">
+    <link rel='stylesheet' th:href="@{/css/styles.css}">
 </head>
 <body>
     <h1>Dine Katte</h1>
@@ -54,7 +53,7 @@
                 </td>
             </tr>
             <tr th:if="${#lists.isEmpty(cats)}">
-                <td colspan="6">Du har ingen oprettede katte</td>
+                <td colspan="8">Du har ingen oprettede katte</td>
             </tr>
         </tbody>
     </table>

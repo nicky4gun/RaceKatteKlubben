@@ -9,7 +9,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
     public String handleIllegalArgumentException(IllegalArgumentException e, Model model) {
-        model.addAttribute("errorMessage", e.getMessage() != null ? e.getMessage() : "An unexpected error occurred");
+        model.addAttribute("errorMessage", e.getMessage() != null ? e.getMessage() : "Der opstod en uventet fejl");
         return "error";
     }
 }

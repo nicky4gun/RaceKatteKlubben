@@ -53,8 +53,8 @@ public class CatService {
         catRepository.updateCat(cat);
     }
 
-    public List<Cat> seachForCat(String keyword, int memberId) {
-      return catRepository.searchForCat( keyword, memberId);
+    public List<Cat> seachForCat(String keyword) {
+      return catRepository.searchForCat( keyword);
     }
 
     public void removeCat(int catId) {catRepository.deleteCat(catId);}
@@ -64,23 +64,23 @@ public class CatService {
 
     private void validateCat(String catName, Race race, int age, YearOrMonth yearOrMonth, Gender gender) {
         if (catName == null || catName.isEmpty()) {
-            throw new IllegalArgumentException("You have to set a cat's name");
+            throw new IllegalArgumentException("Du skal give en kat et navn");
         }
 
         if (race == null) {
-            throw new IllegalArgumentException("You have to set a race");
+            throw new IllegalArgumentException("Du skal vælge en race");
         }
 
         if ( age <= 0 || age > 18 ) {
-            throw new IllegalArgumentException("You have to set an age between 0 and 18");
+            throw new IllegalArgumentException("Du skal angive en alder mellem 0 og 18");
         }
 
         if (yearOrMonth == null) {
-            throw new IllegalArgumentException("You have to set a year or month");
+            throw new IllegalArgumentException("Du skal angive et år eller en måned");
         }
 
         if (gender == null) {
-            throw new IllegalArgumentException("You have to set a gender");
+            throw new IllegalArgumentException("Du skal angive et køn");
         }
     }
 }

@@ -41,7 +41,7 @@ public class MemberService {
         Member existingMember = memberRepository.findMemberById(id);
 
         if (existingMember == null) {
-            throw new IllegalArgumentException("Member with id " + id + " does not exist");
+            throw new IllegalArgumentException("Medlem med id " + id + " findes ikke.");
         }
 
         validateMemberName(memberName);
@@ -63,7 +63,7 @@ public class MemberService {
             validatePassword(password);
 
             if (!BCrypt.checkpw(oldPassword, existingHashedPassword)) {
-                throw new IllegalArgumentException("Old password is wrong");
+                throw new IllegalArgumentException("Den gamle adgangskode er forkert");
             }
 
             return BCrypt.hashpw(password, BCrypt.gensalt(12));
@@ -76,27 +76,27 @@ public class MemberService {
 
     private void validateMemberName(String memberName) {
         if (memberName == null || memberName.isEmpty()) {
-            throw new IllegalArgumentException("Please enter your name");
+            throw new IllegalArgumentException("Indtast venligst dit navn.");
         }
     }
 
     private void validateEmail(String email) {
         if (email == null || email.isEmpty()) {
-            throw new IllegalArgumentException("Please enter your email");
+            throw new IllegalArgumentException("Indtast venligst din e-mail.");
         }
 
         if (!email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]{2,}$")) {
-            throw new IllegalArgumentException("Invalid email address");
+            throw new IllegalArgumentException("Ugyldig e-mailadresse.");
         }
     }
 
     private void validatePassword(String password) {
         if (password == null || password.isEmpty()) {
-            throw new IllegalArgumentException("Please enter your password");
+            throw new IllegalArgumentException("Indtast venligst din adgangskode.");
         }
 
         if (!password.matches("^(?=.*[A-Za-z])(?=.*\\d).{8,}$")) {
-            throw new IllegalArgumentException("Invalid password");
+            throw new IllegalArgumentException("Ugyldig adgangskode");
         }
     }
 }

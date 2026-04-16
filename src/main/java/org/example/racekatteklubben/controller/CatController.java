@@ -3,6 +3,9 @@ package org.example.racekatteklubben.controller;
 import jakarta.servlet.http.HttpSession;
 import org.example.racekatteklubben.models.Cat;
 import org.example.racekatteklubben.models.Member;
+import org.example.racekatteklubben.models.enums.Gender;
+import org.example.racekatteklubben.models.enums.Race;
+import org.example.racekatteklubben.models.enums.YearOrMonth;
 import org.example.racekatteklubben.service.CatService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,6 +43,9 @@ public class CatController {
 
         model.addAttribute("member", member);
         model.addAttribute("cat", new Cat());
+        model.addAttribute("races", Race.values());
+        model.addAttribute("yearOrMonths", YearOrMonth.values());
+        model.addAttribute("genders", Gender.values());
         return "cat/createCat";
     }
 
@@ -53,6 +59,8 @@ public class CatController {
 
         model.addAttribute("member", member);
         model.addAttribute("cat", cat);
+
+
         catService.addCat(cat.getImages(), cat.getCatName(), cat.getRace(), cat.getAge(), cat.getYearOrMonth(), cat.getGender(), member.getId());
 
         return "redirect:/profile/{memberId}/cats";
@@ -71,6 +79,9 @@ public class CatController {
 
         model.addAttribute("member", member);
         model.addAttribute("cat", cat);
+        model.addAttribute("races", Race.values());
+        model.addAttribute("yearOrMonths", YearOrMonth.values());
+        model.addAttribute("genders", Gender.values());
 
         return "cat/updateCat";
 
@@ -86,6 +97,7 @@ public class CatController {
 
         model.addAttribute("member", member);
         model.addAttribute("cat", cat);
+
 
         catService.updateCat(cat.getId(),cat.getImages(),cat.getCatName(),cat.getRace(),cat.getAge(), cat.getYearOrMonth(), cat.getGender(), member.getId());
 
@@ -109,7 +121,7 @@ public class CatController {
         model.addAttribute("member", member);
 
         int memberId = member.getId();
-        model.addAttribute("cats", catService.seachForCat(keyword, memberId));
+        model.addAttribute("cats", catService.seachForCat(keyword));
         model.addAttribute("cat", cat);
         return "home";
     }

@@ -203,6 +203,33 @@ button:hover, .btn:hover {
 }
 
 /* ========================
+   UpdateCat Page Styles
+======================== */
+#update-Cat-Form {
+
+    margin-left: 15px;
+}
+#update-Cat-Form label {
+    color: black;
+}
+.option-dropdown{
+    width: 350px;
+
+
+}
+.option-dropdown select  {
+    display: flex;
+    flex-direction: column;
+    height: 35px;
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+
+/* ========================
    Profile Page Styles
 ======================== */
 
@@ -277,10 +304,10 @@ tr:hover {
 }
 
 .cat {
-    background-color: white;
+
     padding: 10px;
-    border-radius: 12px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+
+
 }
 
 /* ========================
@@ -316,4 +343,5 @@ tr:hover {
 ======================== */
 .cat-form {
     margin-left: 15px;
+    color: black;
 }

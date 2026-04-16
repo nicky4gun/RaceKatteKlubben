@@ -15,7 +15,7 @@ public interface ICatRepository {
 
     void updateCat(Cat cat);
 
-    List<Cat> searchForCat(String name, int memberId);
+    List<Cat> searchForCat(String name);
 
     void deleteCat(int catId);
 

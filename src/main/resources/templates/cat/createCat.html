@@ -23,7 +23,7 @@
     <form class="cat-form"  th:action="@{/profile/{memberId}/cats/create(memberId=${member.id})}" th:object="${cat}" method="post">
         <div class="input-field">
             <Label for="image">Image:</Label>
-            <input type="text" id="image" name="images" th:value="*{images}" placeholder="e.g. image.png">
+            <input type="text" id="image" name="images" th:value="*{images}" placeholder="f.eks. IMG_1428.png">
         </div>
 
         <div class="input-field">
@@ -31,9 +31,17 @@
             <input type="text" id="catName" name="catName" th:value="*{catName}" placeholder="Indtast navn...">
         </div>
 
-        <div class="input-field">
-            <Label for="race">Race: </Label>
-            <input type="text" id="race" name="race" th:value="*{race}" placeholder="Vælg race...">
+        <div class="option-dropdown">
+            <label for="race">Race:</label>
+            <select th:field="*{race} "id="race" placeholder="Vælg Race ...">
+                <option value=""disabled selected>vælg race...</option>
+                <option th:each="race : ${races}"
+                        th:value="${race}"
+                        th:text="${race}"
+                >
+                </option>
+            </select>
+
         </div>
 
         <div class="input-field">
@@ -41,15 +49,27 @@
             <input type="number" id="age" name="age" th:value="*{age}" placeholder="Indtast alder...">
         </div>
 
-        <div class="input-field">
-            <Label for="yearorMonth">Aldersgruppe:</Label>
-            <input type="text" id="yearorMonth" name="yearOrMonth" th:value="*{yearOrMonth}" placeholder="Vælg aldersgruppe...">
-        </div>
+        <div class="option-dropdown">
+            <label for="yearOrMonth">År eller måned:</label>
+            <select  th:field="*{yearOrMonth}" id="yearOrMonth" placeholder="Vælg år eller måned ...">
+                <option value=""disabled selected>vælg år eller måned...</option>
+                <option th:each="yearOrMonth : ${yearOrMonths}"
+                        th:value="${yearOrMonth}"
+                        th:text="${yearOrMonth}">
+                </option>
+            </select>
 
-        <div class="input-field">
-            <Label for="gender">Køn:</Label>
-            <input type="text" id="gender" name="gender" th:value="*{gender}" placeholder="Vælg køn...">
-        </div>
+            <div class="option-dropdown">
+                <label for="gender">Køn:</label>
+                <select  th:field="*{gender}" id="gender" placeholder="Vælg køn...">
+                    <option value=""disabled selected> vælg køn...</option>
+                    <option th:each="gender : ${genders}"
+                            th:value="${gender}"
+                            th:text="${gender}">
+                    </option>
+                </select>
+
+            </div>
 
         <input type="hidden" name="memberId" th:value="${memberId}">
 

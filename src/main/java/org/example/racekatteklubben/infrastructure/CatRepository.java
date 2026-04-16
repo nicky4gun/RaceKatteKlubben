@@ -97,14 +97,14 @@ public class CatRepository implements ICatRepository {
     }
 
     @Override
-    public List<Cat> searchForCat(String keyword, int memberId){
+    public List<Cat> searchForCat(String keyword){
         String sql = "SELECT cats.id, image, cat_name, race, age, year_or_month, gender, member_id FROM cats " +
                      "JOIN members on cats.member_id = members.id " +
-                     "WHERE cats.member_id = ? AND cats.cat_name Like ?";
+                     "WHERE cats.cat_name Like ?";
 
         String pattern = "%" + keyword + "%";
 
-        return jdbcTemplate.query(sql, new Object[]{memberId, pattern}, (rs,rowNum) ->
+        return jdbcTemplate.query(sql, new Object[]{pattern}, (rs,rowNum) ->
                 new Cat(
                     rs.getInt("id"),
                     rs.getString("image"),

@@ -20,10 +20,10 @@
 
     <h1>Opret ny Kat</h1>
 
-    <form class="cat-form"  th:action="@{/profile/{memberId}/cats/create(memberId=${member.id})}" th:object="${cat}" method="post">
+    <form class="cat-form"  th:action="@{/profile/{memberId}/cats/create(memberId=${member.id})}" th:object="${cat}" method="post" enctype="multipart/form-data">
         <div class="input-field">
-            <Label for="image">Image:</Label>
-            <input type="text" id="image" name="images" th:value="*{images}" placeholder="f.eks. IMG_1428.png">
+
+            <input type="file" name="file">
         </div>
 
         <div class="input-field">

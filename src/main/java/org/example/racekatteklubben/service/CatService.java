@@ -6,20 +6,36 @@ import org.example.racekatteklubben.models.enums.Gender;
 import org.example.racekatteklubben.models.enums.Race;
 import org.example.racekatteklubben.models.enums.YearOrMonth;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Service
 public class CatService {
     private final ICatRepository catRepository;
+    private final String uploadPlace = "upload/images/";
 
     public CatService(ICatRepository catRepository) {
         this.catRepository = catRepository;
     }
 
-    public int addCat(String imageUrl, String catName, Race race, int age, YearOrMonth yearOrMonth, Gender gender, int memberId) {
+    public int addCat(String imageUrl, String catName, Race race, int age, YearOrMonth yearOrMonth, Gender gender, int memberId, MultipartFile file)throws IOException {
         validateCat(catName, race, age,yearOrMonth, gender);
+
+
+        if(file.isEmpty()) throw new IllegalArgumentException("file is empty");
+        String fileName = file.getOriginalFilename();
+        Path path = Paths.get(uploadPlace + fileName);
+        Files.createDirectories(path.getParent());
+        Files.write(path, file.getBytes());
+
         Cat cat = new Cat(imageUrl, catName, race, age,yearOrMonth, gender, memberId);
+        cat.setImages(fileName);
+
         return catRepository.createCat(cat);
     }
 
@@ -57,7 +73,17 @@ public class CatService {
       return catRepository.searchForCat( keyword);
     }
 
-    public void removeCat(int catId) {catRepository.deleteCat(catId);}
+
+
+    public void removeCat(int catId) throws IOException {
+        Cat cat = findCatById(catId);
+
+        Path path = Paths.get(uploadPlace + cat.getImages());
+        Files.deleteIfExists(path);
+        catRepository.deleteCat(catId);
+
+
+    }
 
     public void removeCatByMemberId(int memberId) {catRepository.deleteCatByMemberId(memberId);}
 

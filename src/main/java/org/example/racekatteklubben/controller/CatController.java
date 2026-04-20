@@ -10,6 +10,9 @@ import org.example.racekatteklubben.service.CatService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Controller
 public class CatController {
@@ -50,7 +53,7 @@ public class CatController {
     }
 
     @PostMapping("/profile/{memberId}/cats/create")
-    public String createCat(@ModelAttribute Cat cat, HttpSession session, Model model, @PathVariable int memberId) {
+    public String createCat(@ModelAttribute Cat cat, HttpSession session, Model model, @PathVariable int memberId, @RequestParam MultipartFile file ) {
         Member member = (Member) session.getAttribute("loggedInMember");
 
         if (member == null) {
@@ -60,9 +63,11 @@ public class CatController {
         model.addAttribute("member", member);
         model.addAttribute("cat", cat);
 
-
-        catService.addCat(cat.getImages(), cat.getCatName(), cat.getRace(), cat.getAge(), cat.getYearOrMonth(), cat.getGender(), member.getId());
-
+        try {
+            catService.addCat(cat.getImages(), cat.getCatName(), cat.getRace(), cat.getAge(), cat.getYearOrMonth(), cat.getGender(), member.getId(), file);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         return "redirect:/profile/{memberId}/cats";
     }
 
@@ -105,9 +110,17 @@ public class CatController {
     }
 
     @PostMapping("/cat/delete/{catId}")
-    public String deleteCat(@PathVariable int catId) {
+    public String deleteCat(Model model, HttpSession session,  @PathVariable int catId)throws IOException {
+        Member member = (Member) session.getAttribute("loggedInMember");
+
+        if (member == null) {
+            return "redirect:/login";
+        }
+
+        model.addAttribute("member", member);
+        int memberId = member.getId();
         catService.removeCat(catId);
-        return "redirect:/profile/{memberId}/cats";
+        return "redirect:/profile/" + memberId + "/cats";
     }
 
     @PostMapping("/home/cats")
